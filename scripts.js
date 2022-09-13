@@ -71,7 +71,8 @@ const gameController = (() => {
 						bestScore = score
 						bestMove = i
 					}
-                }
+            }
+			gameBoard[bestMove]
         }
     }
 
