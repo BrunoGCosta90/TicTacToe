@@ -72,7 +72,7 @@ const gameController = (() => {
 						bestMove = i
 					}
             }
-			gameBoard[bestMove]
+			gameBoard[bestMove] = "O"
         }
     }
 
