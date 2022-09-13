@@ -14,32 +14,72 @@ const gameController = (() => {
         [6, 7, 8]
     ];
 
-    const minimax = (score, depth) => {
-        
+    const minimax = (board, depth, isComputer) => {
+		let checkEndOFGame = checkWin(board)
+		if (checEndOFGame == "player"){
+			let score = 1
+			return score
+		} else if (checkEndOFGame == "computer"){
+			let score = -1
+			return score
+		} else if (checEndOFGame == "draw" || checkEndOFGame == "continue"){
+			let score = 0
+			return score
+		}
+		
+        if(maximazing){
+			let bestScore = -10000
+			for (let i = 0; i < 9; i++){
+				if(board[i] == ""){
+					board[i] = "O"
+					let score = minimax(board, depth + 1, false)
+					board[i] = ""
+					if (bestScore < score){
+						bestScore = score
+					}
+				}
+			}
+			return bestScore
+		} else {
+			let bestScore = 10000
+			for (let i = 0; i < 9; i++){
+				if(board[i] == ""){
+					board[i] = "X"
+					let score = minimax(board, depth + 1, true)
+					board[i] = ""
+					if (score < bestScore){
+						bestScore = score
+					}
+				}
+			}
+			return bestScore
+		}
+			
     }
 
     const computerTurn = () => {
         const stateOfGame = gameBoard
-        let worstScore = 0
-        let bestScore = 0
-        let computerMove
-        for (let i = 0; i < 3;i++){
-            for(let y = 0; y < 3;y++){
-                if (stateOfGame[i][y] == ""){
-                    stateOfGame[i][y] = "O"
+        let bestScore = -10000
+        let bestMove
+        let score
+        for (let i = 0; i < 9; i++){
+			if (stateOfGame[i] == ""){
+                    stateOfGame[i] = "O"
+					let score = minimax(stateOfGame, 0, true)
+					stateOfGame[i] = ""
+					if (bestScore < score){
+						bestScore = score
+						bestMove = i
+					}
                 }
-            }
         }
     }
 
     const turnsLeft = (board) => {
         let avaiableSpots = 0
-        for (let i = 0; i < 3; i++){
-            for (let y = 0; y < 3;y++){
-                if (board[i][y] == ""){
-                    avaiableSpots++
-                }
-            }
+        for (let i = 0; i < 9; i++){
+
+			avaiableSpots++
         }
         return avaiableSpots
     }
@@ -50,16 +90,18 @@ const gameController = (() => {
             let tic = winCombinations[i][0]
             let tac = winCombinations[i][1]
             let toe = winCombinations[i][2]
-            if (board[tic] == board[tac] && board[tic] == board[toe] &&
+            if (board[tic] == board[tac] && board[tac] == board[toe] &&
                 board[tic] == "X" ){
                 console.log("win!")
                 return "player"
-            } else if (board[tic] == board[tac] && board[tic] == board[toe] &&
+            } else if (board[tic] == board[tac] && board[tac] == board[toe] &&
                 board[tic] == "O"){
                 return "computer"
             } else if (checkDraw() == "draw"){
                 return "draw"
-            }
+            } else {
+				return "continue"
+			}
         }
 
         
@@ -68,7 +110,7 @@ const gameController = (() => {
     const checkDraw = () => {
         let fillCounter = 0;
         
-        for (let i = 0; i < gameBoard.length; i++){
+        for (let i = 0; i < 9; i++){
             if(gameBoard[i] != ""){
                 fillCounter++;
             }
