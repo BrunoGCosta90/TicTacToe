@@ -73,6 +73,7 @@ const gameController = (() => {
 					}
             }
 			gameBoard[bestMove] = "O"
+			document.getElementById(i).textContent = "O"
         }
     }
 
