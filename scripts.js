@@ -111,9 +111,10 @@ const gameController = (() => {
             } else if (board[tic] == board[tac] && board[tac] == board[toe] &&
                 board[tic] == "O") {
                 return "computer"
-            } else if (checkDraw(board) == "draw") {
+            }
+        }
+        if (checkDraw(board) == "draw") {
                 return "draw"
-           }
         }
 
 
