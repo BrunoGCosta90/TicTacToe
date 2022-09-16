@@ -1,11 +1,8 @@
-//const gameBoard = ["X","X","X","X","X","X","X","X","X"];
-const gameBoard = ["", "", "", "", "", "", "", "", ""]
-//let winner;
-
 const gameController = (() => {
+    const gameBoard = ["", "", "", "", "", "", "", "", ""]
 
     const resetGame = document.getElementById('reset')
-    
+
     const winCombinations = [
         [0, 1, 2],
         [0, 4, 8],
@@ -21,7 +18,6 @@ const gameController = (() => {
 
     const endOfGame = () => {
         const winner = checkWin(gameBoard)
-        console.log(winner)
 
         if (winner == "player") {
             scoreDisplyay.textContent = "player wins!"
@@ -32,14 +28,12 @@ const gameController = (() => {
         }
     }
 
-
-
     const minimax = (board, depth, isComputer) => {
         let checkEndOFGame = checkWin(board)
         if (checkEndOFGame == "player") {
-            return (depth -10)
+            return (depth - 10)
         } else if (checkEndOFGame == "computer") {
-            return (depth +10)
+            return (depth + 10)
         } else if (checkEndOFGame == "draw") {
             return 0
         }
@@ -49,7 +43,7 @@ const gameController = (() => {
             for (let i = 0; i < 9; i++) {
                 if (board[i] == "") {
                     board[i] = "O"
-                    let score = minimax(board, depth -1, false)
+                    let score = minimax(board, depth - 1, false)
                     board[i] = ""
                     bestScore = Math.max(score, bestScore)
                 }
@@ -60,14 +54,13 @@ const gameController = (() => {
             for (let i = 0; i < 9; i++) {
                 if (board[i] == "") {
                     board[i] = "X"
-                    let score = minimax(board, depth -1, true)
+                    let score = minimax(board, depth - 1, true)
                     board[i] = ""
                     bestScore = Math.min(score, bestScore)
                 }
             }
             return bestScore
         }
-
     }
 
     const computerTurn = () => {
@@ -90,16 +83,6 @@ const gameController = (() => {
         endOfGame()
     }
 
-    const turnsLeft = (board) => {
-        let avaiableSpots = 9
-        for (let i = 0; i < 9; i++) {
-            if (board[i] == ""){
-                avaiableSpots--
-            }
-        }
-        return avaiableSpots
-    }
-
     const checkWin = (board) => {
         for (let i = 0; i < winCombinations.length; i++) {
             let tic = winCombinations[i][0]
@@ -114,10 +97,8 @@ const gameController = (() => {
             }
         }
         if (checkDraw(board) == "draw") {
-                return "draw"
+            return "draw"
         }
-
-
     }
 
     const checkDraw = (board) => {
@@ -151,9 +132,9 @@ const gameController = (() => {
 
     return {
         gameButton,
-        checkWin,
         scoreDisplyay,
-        resetGame
+        resetGame,
+        gameBoard
     }
 })()
 
@@ -164,7 +145,7 @@ const gameBoardRender = (() => {
         for (let i = 0; i < 9; i++) {
             board.appendChild(document.createElement('div'));
             board.lastChild.id = i;
-            board.lastChild.textContent = gameBoard[i];
+            board.lastChild.textContent = gameController.gameBoard[i];
             board.lastChild.addEventListener('click', event => { gameController.gameButton(event) })
         }
     }
@@ -172,7 +153,7 @@ const gameBoardRender = (() => {
     const reset = () => {
         for (let i = 0; i < 9; i++) {
             document.getElementById(i).textContent = "";
-            gameBoard[i] = "";
+            gameController.gameBoard[i] = "";
         }
         gameController.scoreDisplyay.textContent = ""
     }

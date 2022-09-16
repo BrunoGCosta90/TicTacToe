@@ -26,8 +26,6 @@ body {
 
 .game-grid {
     display: grid;
-    /* grid-template-columns: repeat(3, minmax(min-content, 100px));
-    grid-template-rows: repeat(3, minmax(min-content, 100px)); */
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
     gap: 2px;
@@ -52,17 +50,17 @@ body {
     display: flex;
     flex-direction: column-reverse;
     width: 100vw;
-    height: 250px;
+    height: 165px;
     align-items: center;
     justify-content: space-around;
 }
 
 .reset {
     width: 120px;
-    height: 80px;
+    height: 40px;
     background-color: bisque;
     text-align: center;
-    line-height: 80px;
+    line-height: 40px;
     vertical-align: middle;
     margin-bottom: 25px;
     border-radius: 12px;
@@ -83,8 +81,6 @@ body {
 }
 
 .footer {
-    /* position: fixed;
-    bottom: 0; */
     width: 100vw;
     text-align: center;
     height: 40px;
