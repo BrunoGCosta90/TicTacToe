@@ -99,6 +99,8 @@ const gameController = (() => {
         if (checkDraw(board) == "draw") {
             return "draw"
         }
+
+        return "continue"
     }
 
     const checkDraw = (board) => {
@@ -116,7 +118,8 @@ const gameController = (() => {
 
     const gameButton = (event) => {
         const tileSelector = event.target
-        if (tileSelector.textContent == "" && gameBoard[tileSelector.id] == "") {
+        if (tileSelector.textContent == "" && gameBoard[tileSelector.id] == "" &&
+            checkWin(gameBoard) == "continue") {
             tileSelector.textContent = "X";
             gameBoard[tileSelector.id] = "X";
             checkEndOFGame = checkWin(gameBoard)
