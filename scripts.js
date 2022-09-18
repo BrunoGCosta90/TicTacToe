@@ -99,7 +99,6 @@ const gameController = (() => {
         if (checkDraw(board) == "draw") {
             return "draw"
         }
-
         return "continue"
     }
 
